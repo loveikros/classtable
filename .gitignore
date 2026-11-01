@@ -1,0 +1,38 @@
+# Build tools and local configuration
+.gradle/
+.idea/
+build/
+app/build/
+local.properties
+.toolchains/
+*.iml
+
+# Private data, saved school pages and credentials
+研究生选课_files/
+*_files/
+*.html
+*.htm
+*.mhtml
+*.har
+*.db
+*.db-*
+*.sqlite*
+*.log
+*.jks
+*.keystore
+*.pem
+*.key
+.env
+.env.*
+keystore.properties
+signing.properties
+
+# Build outputs and local design experiments
+*.apk
+*.APK
+*.aab
+*.zip
+preview/
+tmp/
+.DS_Store
+Thumbs.db

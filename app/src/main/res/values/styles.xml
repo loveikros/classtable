@@ -1,0 +1,9 @@
+<resources>
+    <style name="TimetableTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">#6F9283</item>
+        <item name="android:statusBarColor">#D6E5D9</item>
+        <item name="android:navigationBarColor">#EDF2EE</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">#F7F8F5</item>
+    </style>
+</resources>

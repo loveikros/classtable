@@ -1,0 +1,12 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="12dp" android:background="@drawable/widget_background">
+    <TextView android:id="@+id/widget_title" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="#435C5A" android:textSize="12sp" android:textStyle="bold" android:maxLines="1" />
+    <TextView android:id="@+id/widget_first" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" android:textColor="#253B3A" android:textSize="12sp" android:maxLines="2" />
+    <TextView android:id="@+id/widget_second" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" android:textColor="#253B3A" android:textSize="12sp" android:maxLines="2" />
+    <TextView android:id="@+id/widget_more" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="3dp" android:textColor="#647B77" android:textSize="11sp" android:maxLines="1" />
+</LinearLayout>
