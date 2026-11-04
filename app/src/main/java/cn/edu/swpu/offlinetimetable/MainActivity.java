@@ -9,8 +9,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,10 +25,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.webkit.WebSettings;
-import org.json.JSONArray;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -497,52 +491,7 @@ public final class MainActivity extends Activity {
     }
 
     private void openSchoolImport() {
-        LinearLayout content = column();
-        content.setPadding(dp(12), dp(4), dp(12), dp(4));
-        label(content, "登录后打开“我的课表”弹窗，再点下方按钮。", 15);
-        Button capture = button(content, "抓取课表并预览", () -> { });
-        capture.setTextSize(16);
-        capture.setMinHeight(dp(56));
-        capture.setMaxLines(2);
-        capture.setTextColor(Color.WHITE);
-        capture.setBackground(roundedSurface(Color.rgb(95, 131, 119)));
-        WebView web = new WebView(this);
-        web.setFocusable(true);
-        web.setFocusableInTouchMode(true);
-        web.getSettings().setJavaScriptEnabled(true);
-        web.getSettings().setDomStorageEnabled(true);
-        web.getSettings().setAllowFileAccess(false);
-        web.getSettings().setAllowContentAccess(false);
-        web.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
-        web.setWebViewClient(new WebViewClient());
-        int browserHeight = (int) (getResources().getDisplayMetrics().heightPixels * 0.62f);
-        content.addView(web, new LinearLayout.LayoutParams(-1, browserHeight));
-        AlertDialog browser = new AlertDialog.Builder(this).setTitle("学校选课网页")
-                .setView(content).setNegativeButton("取消", null).create();
-        browser.setOnDismissListener(ignored -> web.destroy());
-        capture.setOnClickListener(view -> {
-            String url = web.getUrl();
-            if (url == null || !url.startsWith("https://yjs.swpu.edu.cn/")) {
-                error("请在学校选课网页打开课表");
-                return;
-            }
-            web.evaluateJavascript(SchoolImport.EXTRACT, value -> {
-                try {
-                    String json = new JSONArray("[" + value + "]").getString(0);
-                    List<Timetable.Course> courses = SchoolImport.parse(json);
-                    browser.setOnDismissListener(null);
-                    browser.dismiss();
-                    web.destroy();
-                    previewImport(courses);
-                } catch (Exception ex) { error(ex.getMessage()); }
-            });
-        });
-        browser.show();
-        Window window = browser.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        window.setLayout(-1, -1);
-        web.loadUrl("https://yjs.swpu.edu.cn/yjsxkapp/sys/xsxkapp/index.html");
+        new SchoolImportBrowser(this, this::previewImport).show();
     }
 
     private void previewImport(List<Timetable.Course> courses) {
